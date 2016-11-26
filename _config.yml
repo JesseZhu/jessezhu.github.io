@@ -2,7 +2,7 @@
 title: Jesse
 description: 'Hi, 我是Jesse,一名iOS开发者，平常也喜欢摄影，听音乐,看电影，欢迎大家能多多交流。'
 url: 'http://joshgerdes.com/jekyll-uno'
-baseurl: '/jesse/'
+baseurl: '/'
 # google_analytics: 'UA-XXXXXX-X'
 # disqus_shortname: 'your-disqus-name'
 
