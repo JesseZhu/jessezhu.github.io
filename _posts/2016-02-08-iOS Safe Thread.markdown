@@ -5,27 +5,10 @@ categories: [杂项]
 tags: [能工巧匠]
 ---
 ### 一、前言
-前段时间看了几个开源项目，发现他们保持线程同步的方式各不相同，**有** @synchronized, NSLock、dispatch_semaphore、NSCondition、pthread_mutex、**OSSpinLock** 。后来网上查了一下，发现他们的实现机制各不相同，性能也各不一样。不好意思，我们平常使用最多的@synchronized是性能最差的。下面我们先分别介绍每个加锁方式的使用，在使用一个案例来对他们进行性能对比。
+前段时间看了几个开源项目，发现他们保持线程同步的方式各不相同，有 **@synchronized**, **NSLock**、**dispatch_semaphore**、**NSCondition**、**pthread_mutex**、**OSSpinLock** 。后来网上查了一下，发现他们的实现机制各不相同，性能也各不一样。不好意思，我们平常使用最多的@synchronized是性能最差的。下面我们先分别介绍每个加锁方式的使用，在使用一个案例来对他们进行性能对比。
 
 ### 二、介绍与使用
 #### 2.1、@synchronized
-```objectivec
-    NSObject *obj = [[NSObject alloc] init];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        @synchronized(obj) {
-            NSLog(@"需要线程同步的操作1 开始");
-            sleep(3);
-            NSLog(@"需要线程同步的操作1 结束");
-        }
-    });
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        sleep(1);
-        @synchronized(obj) {
-            NSLog(@"需要线程同步的操作2");
-        }
-    });
-```
 @synchronized(obj)指令使用的obj为该锁的唯一标识，只有当标识相同时，才为满足互斥，如果线程2中的@synchronized(obj)改为@synchronized(self),刚线程2就不会被阻塞，@synchronized指令实现锁的优点就是我们不需要在代码中显式的创建锁对象，便可以实现锁的机制，但作为一种预防措施，@synchronized块会隐式的添加一个异常处理例程来保护代码，该处理例程会在异常抛出的时候自动的释放互斥锁。所以如果不想让隐式的异常处理例程带来额外的开销，你可以考虑使用锁对象。
 
 上面结果的执行结果为：
