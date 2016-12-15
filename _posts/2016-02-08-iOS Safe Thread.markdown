@@ -10,9 +10,10 @@ tags: [能工巧匠]
 
 ### 二、介绍与使用
 #### 2.1、@synchronized
-```objectivec
-NSObject *obj = [[NSObject alloc] init];
 
+
+```objectivec
+    NSObject *obj = [[NSObject alloc] init];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @synchronized(obj) {
             NSLog(@"需要线程同步的操作1 开始");
