@@ -5,12 +5,10 @@ categories: [杂项]
 tags: [能工巧匠]
 ---
 ### 一、前言
-前段时间看了几个开源项目，发现他们保持线程同步的方式各不相同，有 @synchronized, NSLock、dispatch_semaphore、NSCondition、pthread_mutex、OSSpinLock 。后来网上查了一下，发现他们的实现机制各不相同，性能也各不一样。不好意思，我们平常使用最多的@synchronized是性能最差的。下面我们先分别介绍每个加锁方式的使用，在使用一个案例来对他们进行性能对比。
+前段时间看了几个开源项目，发现他们保持线程同步的方式各不相同，**有** @synchronized, NSLock、dispatch_semaphore、NSCondition、pthread_mutex、**OSSpinLock** 。后来网上查了一下，发现他们的实现机制各不相同，性能也各不一样。不好意思，我们平常使用最多的@synchronized是性能最差的。下面我们先分别介绍每个加锁方式的使用，在使用一个案例来对他们进行性能对比。
 
 ### 二、介绍与使用
 #### 2.1、@synchronized
-
-
 ```objectivec
     NSObject *obj = [[NSObject alloc] init];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -346,26 +344,28 @@ NSCondition *condition = [[NSCondition alloc] init];
 2016-06-30 20:21:27.308 SafeMultiThread[31256:513991] custome a product
 
 #### 2.7、pthread_mutex
+```objectivec
+__block pthread_mutex_t theLock;
+pthread_mutex_init(&theLock, NULL);
 
-    __block pthread_mutex_t theLock;
-    pthread_mutex_init(&theLock, NULL);
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        pthread_mutex_lock(&theLock);
+        NSLog(@"需要线程同步的操作1 开始");
+        sleep(3);
+        NSLog(@"需要线程同步的操作1 结束");
+        pthread_mutex_unlock(&theLock);
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            pthread_mutex_lock(&theLock);
-            NSLog(@"需要线程同步的操作1 开始");
-            sleep(3);
-            NSLog(@"需要线程同步的操作1 结束");
-            pthread_mutex_unlock(&theLock);
+});
 
-    });
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        sleep(1);
+        pthread_mutex_lock(&theLock);
+        NSLog(@"需要线程同步的操作2");
+        pthread_mutex_unlock(&theLock);
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            sleep(1);
-            pthread_mutex_lock(&theLock);
-            NSLog(@"需要线程同步的操作2");
-            pthread_mutex_unlock(&theLock);
+});
+```
 
-    });
 c语言定义下多线程加锁方式。
 
 1：pthread_mutex_init(pthread_mutex_t mutex,const pthread_mutexattr_t attr);
