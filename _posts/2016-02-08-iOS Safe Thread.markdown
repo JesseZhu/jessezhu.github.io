@@ -156,7 +156,6 @@ NSLock是Cocoa提供给我们最基本的锁对象，这也是我们经常所使
 
 @end
 ```
-
 #### 2.4、NSRecursiveLock递归锁
 ```objectivec
 //NSLock *lock = [[NSLock alloc] init];
@@ -188,9 +187,15 @@ NSLock是Cocoa提供给我们最基本的锁对象，这也是我们经常所使
 NSRecursiveLock实际上定义的是一个递归锁，这个锁可以被同一线程多次请求，而不会引起死锁。这主要是用在循环或递归操作中。
 这段代码是一个典型的死锁情况。在我们的线程中，RecursiveMethod是递归调用的。所以每次进入这个block时，都会去加一次锁，而从第二次开始，由于锁已经被使用了且没有解锁，所以它需要等待锁被解除，这样就导致了死锁，线程被阻塞住了。调试器中会输出如下信息：
 
+```
 2016-06-30 19:08:06.393 SafeMultiThread[30928:449008] value = 5
 2016-06-30 19:08:07.399 SafeMultiThread[30928:449008] -[NSLock lock]: deadlock (<NSLock: 0x7fd811d28810> '(null)')
 2016-06-30 19:08:07.399 SafeMultiThread[30928:449008] Break on _NSLockError() to debug.
+```
+
+文／景铭巴巴（简书作者）
+原文链接：http://www.jianshu.com/p/938d68ed832c
+著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
 
 在这种情况下，我们就可以使用NSRecursiveLock。它可以允许同一线程多次加锁，而不会造成死锁。递归锁会跟踪它被lock的次数。每次成功的lock都必须平衡调用unlock操作。只有所有达到这种平衡，锁最后才能被释放，以供其它线程使用。
 
@@ -203,6 +208,7 @@ NSRecursiveLock实际上定义的是一个递归锁，这个锁可以被同一�
 2016-06-30 19:09:45.426 SafeMultiThread[30949:450684] value = 1
 
 如果需要其他功能，源码定义如下：
+
 ```objectivec
 @interface NSRecursiveLock : NSObject <NSLocking> {
 @private
@@ -216,6 +222,7 @@ NSRecursiveLock实际上定义的是一个递归锁，这个锁可以被同一�
 
 @end
 ```
+
 #### 2.5、NSConditionLock条件锁
 ```objectivec
 NSMutableArray *products = [NSMutableArray array];
