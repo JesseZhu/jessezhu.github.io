@@ -5,13 +5,17 @@ categories: [杂项]
 tags: [能工巧匠]
 ---
 ### 一、前言
-前段时间看了几个开源项目，发现他们保持线程同步的方式各不相同，有 **@synchronized**, **NSLock**、**dispatch_semaphore**、**NSCondition**、**pthread_mutex**、**OSSpinLock** 。后来网上查了一下，发现他们的实现机制各不相同，性能也各不一样。不好意思，我们平常使用最多的@synchronized是性能最差的。下面我们先分别介绍每个加锁方式的使用，在使用一个案例来对他们进行性能对比。
+```
+NSObject *obj = [[NSObject alloc] init];
+```
+前段时间看了几个开源项目，发现他们保持线程同步的方式各不相同，有 **@synchronized**、 **NSLock**、**dispatch_semaphore**、**NSCondition**、**pthread_mutex**、**OSSpinLock** 。后来网上查了一下，发现他们的实现机制各不相同，性能也各不一样。不好意思，我们平常使用最多的@synchronized是性能最差的。下面我们先分别介绍每个加锁方式的使用，在使用一个案例来对他们进行性能对比。
 
 ### 二、介绍与使用
 
 #### 2.1、@synchronized
 
-```objectivec
+```
+@interface
     NSObject *obj = [[NSObject alloc] init];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @synchronized(obj) {
@@ -27,6 +31,7 @@ tags: [能工巧匠]
             NSLog(@"需要线程同步的操作2");
         }
     });
+@end
 ```
 
 @synchronized(obj)指令使用的obj为该锁的唯一标识，只有当标识相同时，才为满足互斥，如果线程2中的@synchronized(obj)改为@synchronized(self),刚线程2就不会被阻塞，@synchronized指令实现锁的优点就是我们不需要在代码中显式的创建锁对象，便可以实现锁的机制，但作为一种预防措施，@synchronized块会隐式的添加一个异常处理例程来保护代码，该处理例程会在异常抛出的时候自动的释放互斥锁。所以如果不想让隐式的异常处理例程带来额外的开销，你可以考虑使用锁对象。
@@ -38,7 +43,8 @@ tags: [能工巧匠]
 2016-06-29 20:48:38.749 SafeMultiThread[35945:580118] 需要线程同步的操作2
 
 #### 2.2、dispatch_semaphore
-```objectivec
+
+```
 dispatch_semaphore_t signal = dispatch_semaphore_create(1);
     dispatch_time_t overTime = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
 
@@ -96,7 +102,7 @@ dispatch_semaphore 是信号量，但当信号总量设为 1 时也可以当作�
 2016-06-30 18:53:26.054 SafeMultiThread[30834:434334] 需要线程同步的操作1 结束
 
 #### 2.3、NSLock
-```objectivec
+```
 NSLock *lock = [[NSLock alloc] init];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //[lock lock];
@@ -137,7 +143,7 @@ NSLock是Cocoa提供给我们最基本的锁对象，这也是我们经常所使
 2016-06-29 20:45:10.870 SafeMultiThread[35911:575781] 没有超时，获得锁
 
 源码定义如下：
-```objectivec
+```
 @protocol NSLocking
 
 - (void)lock;
@@ -158,7 +164,7 @@ NSLock是Cocoa提供给我们最基本的锁对象，这也是我们经常所使
 @end
 ```
 #### 2.4、NSRecursiveLock递归锁
-```objectivec
+```
 //NSLock *lock = [[NSLock alloc] init];
     NSRecursiveLock *lock = [[NSRecursiveLock alloc] init];
 
@@ -210,7 +216,7 @@ NSRecursiveLock实际上定义的是一个递归锁，这个锁可以被同一�
 
 如果需要其他功能，源码定义如下：
 
-```objectivec
+```
 @interface NSRecursiveLock : NSObject <NSLocking> {
 @private
     void *_priv;
@@ -225,7 +231,8 @@ NSRecursiveLock实际上定义的是一个递归锁，这个锁可以被同一�
 ```
 
 #### 2.5、NSConditionLock条件锁
-```objectivec
+
+```
 NSMutableArray *products = [NSMutableArray array];
 
     NSInteger HAS_DATA = 1;
@@ -272,7 +279,7 @@ NSMutableArray *products = [NSMutableArray array];
 
 如果你需要其他功能，源码定义如下：
 
-```objectivec
+```
 @interface NSConditionLock : NSObject <NSLocking> {
 @private
     void *_priv;
@@ -293,7 +300,7 @@ NSMutableArray *products = [NSMutableArray array];
 @end
 ```
 #### 2.6、NSCondition
-```objectivec
+```
 NSCondition *condition = [[NSCondition alloc] init];
 
     NSMutableArray *products = [NSMutableArray array];
@@ -347,7 +354,7 @@ NSCondition *condition = [[NSCondition alloc] init];
 2016-06-30 20:21:27.308 SafeMultiThread[31256:513991] custome a product
 
 #### 2.7、pthread_mutex
-```objectivec
+```
 __block pthread_mutex_t theLock;
 pthread_mutex_init(&theLock, NULL);
 
@@ -385,6 +392,7 @@ c语言定义下多线程加锁方式。
 2016-06-30 21:13:35.446 SafeMultiThread[31429:548866] 需要线程同步的操作2
 
 #### 2.8、pthread_mutex(recursive)
+```
     __block pthread_mutex_t theLock;
     //pthread_mutex_init(&theLock, NULL);
 
@@ -412,12 +420,12 @@ c语言定义下多线程加锁方式。
 
         RecursiveMethod(5);
     });
+```
 这是pthread_mutex为了防止在递归的情况下出现死锁而出现的递归锁。作用和NSRecursiveLock递归锁类似。
-
-如果使用pthread_mutex_init(&theLock, NULL);初始化锁的话，上面的代码会出现死锁现象。如果使用递归锁的形式，则没有问题。
+如果使用 pthread_mutex_init(&theLock, NULL);初始化锁的话，上面的代码会出现死锁现象。如果使用递归锁的形式，则没有问题。
 
 #### 2.9、OSSpinLock
-```objectivec
+```
 __block OSSpinLock theLock = OS_SPINLOCK_INIT;
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     OSSpinLockLock(&theLock);

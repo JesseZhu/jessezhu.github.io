@@ -29,11 +29,11 @@ permalink: /:year/:title/
 markdown: kramdown
 highlighter: rouge
 
-#kramdown:
+kramdown:
   # use Github Flavored Markdown
-  #input: GFM
+  input: GFM
   # do not replace newlines by <br>s
-  #hard_wrap: false
+  hard_wrap: false
 
 gems: ['jekyll-paginate']
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
