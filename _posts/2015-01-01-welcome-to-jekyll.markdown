@@ -1,9 +1,16 @@
 ---
-title:  "Welcome to Jekyll!"
+title:  "Welcome to My Jekyll!"
 date:   2015-01-01 15:04:23
 categories: [jekyll]
 tags: [jekyll]
 ---
+
+期待已久的小站，在参考大量资料的基础上终于搭建起来了，还有很多带完善的地方，后续在优化，希望能够坚持写下去；
+
+
+
+
+
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve --watch`, which launches a web server and auto-regenerates your site when a file is updated.
 
 To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
