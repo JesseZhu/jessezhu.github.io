@@ -5,9 +5,6 @@ categories: [杂项]
 tags: [能工巧匠]
 ---
 ### 一、前言
-```
-NSObject *obj = [[NSObject alloc] init];
-```
 前段时间看了几个开源项目，发现他们保持线程同步的方式各不相同，有 **@synchronized**、 **NSLock**、**dispatch_semaphore**、**NSCondition**、**pthread_mutex**、**OSSpinLock** 。后来网上查了一下，发现他们的实现机制各不相同，性能也各不一样。不好意思，我们平常使用最多的@synchronized是性能最差的。下面我们先分别介绍每个加锁方式的使用，在使用一个案例来对他们进行性能对比。
 
 ### 二、介绍与使用
