@@ -6,20 +6,18 @@ tags: [能工巧匠]
 ---
 一直想做这样一个小册子，来记录自己平时开发、阅读博客、看书、代码分析和与人交流中遇到的各种问题。之前有过这样的尝试，但都是无疾而终。不过，每天接触的东西多，有些东西不记下来，忘得也是很快，第二次遇到同样的问题时，还得再查一遍。好记性不如烂笔头，所以又决定重拾此事，时不时回头看看，温故而知新。
 
-这里面的每个问题，不会太长。或是读书笔记，或是摘抄，亦或是验证，每个问题的篇幅争取在六七百字的样子。笔记和摘抄的出处会详细标明。问题的个数不限，凑齐3000字左右就发一篇。
-
 本期主要记录了以下几个问题：
 
 * `NSString`属性什么时候用copy，什么时候用strong?
 * `Foundation`中的断言处理
-* `IBOutletCollection`递归锁的使用
-* `NSRecursiveLock`
+* `IBOutletCollection`
+* `NSRecursiveLock`递归锁的使用
 * `NSHashTable`
 
-####NSString属性什么时候用copy，什么时候用strong?
+#### NSString属性什么时候用copy，什么时候用strong?
 
 我们在声明一个`NSString`属性时，对于其内存相关特性，通常有两种选择(基于`ARC`环境)：`strong`与`copy`。那这两者有什么区别呢？什么时候该用`strong`，什么时候该用`copy`呢？让我们先来看个例子。
-####示例
+#### 示例
 我们定义一个类，并为其声明两个字符串属性，如下所示：
 
 ```
@@ -88,7 +86,7 @@ copy string: 0x7ff5f2e2aee0, 0x7ff5f2e2aed0
 
 关于字符串的内存管理，还有些有意思的东西，可以参考[NSString特性分析学习](http://blog.cnbluebox.com/blog/2014/04/16/nsstringte-xing-fen-xi-xue-xi/)。
 
-####Foundation中的断言处理
+#### Foundation中的断言处理
 
 经常在看一些第三方库的代码时，或者自己在写一些基础类时，都会用到断言。所以在此总结一下Objective-C中关于断言的一些问题。
 
@@ -242,5 +240,5 @@ Matt Thompson在[NSAssertionHandler](http://nshipster.com/nsassertionhandler/)�
 
 另外，IBOutletCollection实际上在iOS 4版本中就有了。不过，现在的Objective-C已经支持object literals了，所以定义数组可以直接用@[]，方便了许多。而且object literals方式可以添加不在xib中的用代码定义的视图，所以显得更加灵活。当然，两种方式选择哪一种，就看我们自己的实际需要和喜好了。
 
-####NSRecursiveLock递归锁的使用
+#### NSRecursiveLock递归锁的使用
 待续......
