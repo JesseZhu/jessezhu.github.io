@@ -1,0 +1,103 @@
+---
+title:  "Mac 提升效率"
+date:   2015-02-11 19:24:22
+categories: [jekyll]
+tags: [效率]
+---
+
+### Xcode 快捷键
+编译、运行，Instruments，单元测试，暂停这些基本操作就不解释了。我把一些自认为比较有用的命令加粗表示：
+
+#### 文件编辑
+1.  Command + [ 和 Command + ] 左右缩进
+
+2. Command + Option + [ 和 Command + Option + ] 当前行上下移动
+3.  Command + Option + Left/Right 折叠、展开当前代码段
+
+#### 文件跳转
+1. Command + Control + Up/Down .h 和 .m 文件切换
+2. Command + Control + Left/Right 浏览历史切换
+3.  Command + Control + j 跳转到定义处
+4.  Command + Option + j 跳转到目录搜索
+5.  Command + 1/2/3/4/5 跳转到左侧不同的栏目
+6. Comannd + Shift + o 文件搜索
+
+#### 搜索
+1.  Comannd + Shift + f 全局搜索
+2.  Command + e 搜索当前选中单词
+3.  Command + g 搜索下一个
+
+### tab
+1.  Command + t 新建一个 tab
+2.  Command + w 关闭当前 tab
+3. Command + Shift + [ 和 Command + Shift + ] 左右切换 tab
+
+### Scheme
+
+1.  Command + shift + , 编辑 scheme，选择 debug 或 release
+### 调试
+F6：跳到下一条指令
+F7：跳进下一条指令（它会跳进内部函数，具体效果自测）
+Control + Command + y 继续运行
+
+### 其他
+1.  Command + k 删除 Console 中的内容
+2.  Command + d 打开/关闭 控制台（修改系统快捷键：Show/Hide Debug Area）
+获得更全面的快捷键介绍，请参考：[这篇文章](http://stackoverflow.com/questions/10296138/xcode-debug-shortcuts)
+
+#### Vim 常用快捷键
+入门指南：简明 Vim 练级攻略
+在我的 git 上有一份 Vim 的配置，先下载到 ~/ 目录下，然后建立软连接：
+
+```
+rm .vimrc
+ln -s .vim/.vimrc .vimrc
+```
+
+推荐一个 Mac 上的 Vim 软件：`MacVim`，它比在终端中看 Vim 更好一些。打开 `MacVim` 后，输入以下命令安装插件：
+
+```
+:BundleInstall
+```
+
+### 进入输入模式
+
+1.  i 在光标前面进入输入模式，a 在光标后面进入输入模式
+2.  I 在行首进入输入模式，A 在行尾进入输入模式
+3.  o 在下一行行首进入输入模式，O 在上一行行首进入输入模式
+
+### 文本操作
+1.  yy 复制当前行，dd 剪切当前行，p 复制。注意这里用的都是 Vim 自带的剪贴板。
+2.  U 撤销，**Ctrl + r 重做
+3.  x 删除光标所在的字母
+4.  cae 或 bce 删除当前光标所在的单词，并进入编辑模式
+5.  数字+命令 重复命令 n 次，比如 3dd
+
+### 光标移动
+1.  ^ 到本行开头，$ 到本行末尾
+2.  :111 或 111G 跳转到 111 行，gg 第一行，G 最后一行。
+3.  e 移动到本单词的结尾， w 移动到下一个单词的开头。
+4.  % 匹配当前光标所在的括号（小括号，中括号，大括号）
+5.  * 查找与光标所在单词相同的下一个单词
+6.  f + 字母 跳转到字母第一次出现的位置，2fb 跳转到字母 b 第二次出现的位置
+7.  t + 字母 跳转到字母第一次出现的前一个位置，3ta 跳转到字母 a 第三次出现的前一个位置
+8. f 和 t 换成大写，表示反方向移动查找。dt + 字母 表示删除字母前的所有内容。
+
+### Chrome
+1. Command + l 焦点移动到地址栏
+2.  Shift + Option + Delete/Left 向左删除/选中一个单词（可以自定义为 Ctrl-w）
+3.  Command + y 搜索历史
+4. Command + 数字 快速切换 tab
+5.  Command + shift + [] 左右切换 tab
+6.  Command + t/w 新建/关闭 tab
+7.  Command + e/g 搜索选中，前往下一个，或者用 Command + f 和回车。
+可以看到，Chrome 中涉及到 tab 的操作应该与 Xcode 尽量保持一致。
+
+### iTerm2
+1. Ctrl w 删除前一个单词
+2.  Command + r 清除屏幕上的内容
+3.  Command + t/w 打开/关闭 tab
+4. Command + 数字 切换到第 n 个 tab
+5.  双击 选中一个单词，自动复制
+
+iTerm 可以通过 Command + shift + [] 来左右切换 tab，也可以通过 Command + Left/Right 切换，后者其实是多余的，而且不符合习惯。

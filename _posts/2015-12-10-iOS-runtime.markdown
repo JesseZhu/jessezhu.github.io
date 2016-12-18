@@ -201,21 +201,3 @@ static char nameKey;
 
 简单的解释就是通过self这个类的，nameKey这个key,我们就可以取到nameKey相对应的值了。
 通过上面的做法，我们就实现了分类中扩充尚需经的功能了。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-[jekyll]:      http://jekyllrb.com
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-help]: https://github.com/jekyll/jekyll-help

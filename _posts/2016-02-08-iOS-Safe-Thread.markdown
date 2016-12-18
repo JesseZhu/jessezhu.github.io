@@ -466,7 +466,3 @@ OSSpinLock和dispatch_semaphore的效率远远高于其他。
 鉴于OSSpinLock的不安全，所以我们在开发中如果考虑性能的话，建议使用dispatch_semaphore。
 
 如果不考虑性能，只是图个方便的话，那就使用@synchronized。
-
-[jekyll]:      http://jekyllrb.com
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-help]: https://github.com/jekyll/jekyll-help
