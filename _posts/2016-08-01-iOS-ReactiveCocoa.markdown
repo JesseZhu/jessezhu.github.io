@@ -15,7 +15,7 @@ RAC一个重要的优点就是它提供了单独的、统一的方法来处理�
 
 这还有一个简单的栗子：
 
-```
+```objc
 // When self.username changes, logs the new name to the console. //
 // RACObserve(self, username) creates a new RACSignal that sends the current
 // value of self.username, then the new value whenever it changes.
@@ -26,7 +26,7 @@ RAC一个重要的优点就是它提供了单独的、统一的方法来处理�
 
 但是不同于KVO通知，signals可以链接在一起操作：
 
-```
+```objc
 // Only logs names that starts with "j". // // -filter returns a new RACSignal that only sends a new value when its block
 // returns YES.
 [[RACObserve(self, username) filter:^(NSString *newName) {
@@ -38,7 +38,7 @@ subscribeNext:^(NSString *newName) {
 
 Signals也可以被用于导出状态。不必观察属性然后设置其他属性来响应这个属性新的值，RAC可以依照signals和操作来表达属性：
 
-```
+```objc
 RAC(self, createEnabled) = [RACSignalcombineLatest:@[ RACObserve(self, password), RACObserve(self, passwordConfirmation) ] reduce:^(NSString *password, NSString *passwordConfirm) { 	
 	        return@([passwordConfirmisEqualToString:password]);
 	}];
@@ -46,7 +46,7 @@ RAC(self, createEnabled) = [RACSignalcombineLatest:@[ RACObserve(self, password)
 
 Signals可以建立在任意值随时间的流动上，不仅仅是KVO。比如，它们也能表示按钮被按下：
 
-```
+```objc
 self.button.rac_command = [[RACCommand alloc] initWithSignalBlock:^(id _) {
 	NSLog(@"button was pressed!"); return [RACSignal empty];
 }];
@@ -54,7 +54,7 @@ self.button.rac_command = [[RACCommand alloc] initWithSignalBlock:^(id _) {
 
 或者异步网络操作：
 
-```
+```objc
 self.loginCommand = [[RACCommand alloc] initWithSignalBlock:^(id sender) {
 // The hypothetical -logIn method returns a signal that sends a value when
 // the network request finishes.
@@ -74,7 +74,7 @@ self.loginCommand = [[RACCommand alloc] initWithSignalBlock:^(id sender) {
 Signals也能表示定时器，其他UI事件，或者任何其他随时间而改变的东西。
 通过链接和转换这些Signals，可以为异步操作建立更加复杂的行为。在一组操作完成后，后续工作能容易地被触发：
 
-```
+```objc
 [[RACSignal merge:@[ [client fetchUserRepos], [client fetchOrgRepos] ]] subscribeCompleted:^{
 	NSLog(@"They're both done!");
 }];
@@ -96,7 +96,7 @@ Signals可以被链接起来按顺序地执行异步操作，而不用嵌套回�
 
 RAC甚至使绑定到异步操作结果更加容易：
 
-```
+```objc
 RAC(self.imageView, image) = [[[[client fetchUserWithUsername:@"joshaber"] deliverOn:[RACScheduler scheduler]] map:^(User *user) {
 // Download the avatar (this is done on a background queue).
 	return [[NSImage alloc] initWithContentsOfURL:user.avatarURL];
@@ -143,7 +143,7 @@ PS：关于reduce的block中参数，其实是与combineLatest中数组元素一
 ######RACSubscriber
 RACSubscriber是一个协议，包含了向订阅者发送事件的方法。
 
-```
+```objc
 [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
 	[subscriber sendNext:@(YES)];
 	[subscriber sendCompleted]; return nil;
@@ -157,7 +157,7 @@ PS：除此之外RACSubscriber还有**sendError:**和**didSubscribeWithDisposabl
 #####RACDisposable
 你会发现RACSignal (Subscription)类别中所有方法的返回值类型都是RACDisposable，它的dispose方法可以让我们手动移除订阅者。举个栗子：
 
-```
+```objc
 RACSignal *backgroundColorSignal = [self.searchText.rac_textSignal map:^id(NSString *text) {
 	 return [self isValidSearchText:text] ? [UIColor whiteColor] : [UIColor yellowColor];
 }];
