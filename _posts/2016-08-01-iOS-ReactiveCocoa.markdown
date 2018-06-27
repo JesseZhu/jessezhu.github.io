@@ -1,4 +1,5 @@
 ---
+layout: "post"
 title:  "ReactiveCocoa初识"
 date:   2016-08-01 21:55:40
 categories: [杂项]

@@ -1,4 +1,5 @@
 ---
+layout: "post"
 title:  "iOS中保证线程安全的几种方式 !"
 date:   2016-02-08 15:04:23
 categories: [杂项]
@@ -11,7 +12,7 @@ tags: [能工巧匠]
 
 #### 2.1、@synchronized
 
-```
+```objc
 @interface
     NSObject *obj = [[NSObject alloc] init];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -41,7 +42,7 @@ tags: [能工巧匠]
 
 #### 2.2、dispatch_semaphore
 
-```
+```objc
 dispatch_semaphore_t signal = dispatch_semaphore_create(1);
     dispatch_time_t overTime = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
 
@@ -99,7 +100,7 @@ dispatch_semaphore 是信号量，但当信号总量设为 1 时也可以当作�
 2016-06-30 18:53:26.054 SafeMultiThread[30834:434334] 需要线程同步的操作1 结束
 
 #### 2.3、NSLock
-```
+```objc
 NSLock *lock = [[NSLock alloc] init];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //[lock lock];
@@ -191,7 +192,7 @@ NSLock是Cocoa提供给我们最基本的锁对象，这也是我们经常所使
 NSRecursiveLock实际上定义的是一个递归锁，这个锁可以被同一线程多次请求，而不会引起死锁。这主要是用在循环或递归操作中。
 这段代码是一个典型的死锁情况。在我们的线程中，RecursiveMethod是递归调用的。所以每次进入这个block时，都会去加一次锁，而从第二次开始，由于锁已经被使用了且没有解锁，所以它需要等待锁被解除，这样就导致了死锁，线程被阻塞住了。调试器中会输出如下信息：
 
-```
+```objc
 2016-06-30 19:08:06.393 SafeMultiThread[30928:449008] value = 5
 2016-06-30 19:08:07.399 SafeMultiThread[30928:449008] -[NSLock lock]: deadlock (<NSLock: 0x7fd811d28810> '(null)')
 2016-06-30 19:08:07.399 SafeMultiThread[30928:449008] Break on _NSLockError() to debug.
@@ -229,7 +230,7 @@ NSRecursiveLock实际上定义的是一个递归锁，这个锁可以被同一�
 
 #### 2.5、NSConditionLock条件锁
 
-```
+```objc
 NSMutableArray *products = [NSMutableArray array];
 
     NSInteger HAS_DATA = 1;
@@ -297,7 +298,7 @@ NSMutableArray *products = [NSMutableArray array];
 @end
 ```
 #### 2.6、NSCondition
-```
+```objc
 NSCondition *condition = [[NSCondition alloc] init];
 
     NSMutableArray *products = [NSMutableArray array];
@@ -389,7 +390,7 @@ c语言定义下多线程加锁方式。
 2016-06-30 21:13:35.446 SafeMultiThread[31429:548866] 需要线程同步的操作2
 
 #### 2.8、pthread_mutex(recursive)
-```
+```objc
     __block pthread_mutex_t theLock;
     //pthread_mutex_init(&theLock, NULL);
 

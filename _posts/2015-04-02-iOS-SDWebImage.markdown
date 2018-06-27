@@ -1,4 +1,5 @@
 ---
+layout: "post"
 title:  "SDWebImage研读"
 date:   2015-04-02 10:42:09
 categories: [杂项]
@@ -27,7 +28,7 @@ tags: [源码分析]
 
 在下载的过程中，程序会根据设置的不同的下载选项，而执行不同的操作。下载选项由枚举`SDWebImageDownloaderOptions`定义，具体如下
 
-```
+```objc
 typedef NS_OPTIONS(NSUInteger, SDWebImageDownloaderOptions) {
     SDWebImageDownloaderLowPriority = 1 << 0,
     SDWebImageDownloaderProgressiveDownload = 1 << 1,
@@ -57,7 +58,7 @@ typedef NS_OPTIONS(NSUInteger, SDWebImageDownloaderOptions) {
 
 `SDWebImage`的下载操作是按一定顺序来处理的，它定义了两种下载顺序，如下所示
 
-```
+```objc
 typedef NS_ENUM(NSInteger, SDWebImageDownloaderExecutionOrder) {
 
     // 以队列的方式，按照先进先出的顺序下载。这是默认的下载顺序
@@ -66,7 +67,7 @@ typedef NS_ENUM(NSInteger, SDWebImageDownloaderExecutionOrder) {
     // 以栈的方式，按照后进先出的顺序下载。
     SDWebImageDownloaderLIFOExecutionOrder
 };
-```
+```objc
 
 ##### 下载管理器
 
@@ -95,7 +96,7 @@ typedef NS_ENUM(NSInteger, SDWebImageDownloaderExecutionOrder) {
 
 每一个图片的下载都会对应一些回调操作，如下载进度回调，下载完成回调等，这些回调操作是以block形式来呈现，为此在`SDWebImageDownloader.h`中定义了几个`block`，如下所示：
 
-```
+```objc
 // 下载进度
 typedef void(^SDWebImageDownloaderProgressBlock)(NSInteger receivedSize, NSInteger expectedSize);
 // 下载完成
@@ -105,7 +106,7 @@ typedef NSDictionary *(^SDWebImageDownloaderHeadersFilterBlock)(NSURL *url, NSDi
 ```
 图片下载的这些回调信息存储在`SDWebImageDownloader`类的`URLCallbacks`属性中，该属性是一个字典，`key`是图片的`URL`地址，`value`则是一个数组，包含每个图片的多组回调信息。由于我们允许多个图片同时下载，因此可能会有多个线程同时操作`URLCallbacks`属性。为了保证`URLCallbacks`操作(添加、删除)的线程安全性，`SDWebImageDownloader`将这些操作作为一个个任务放到`barrierQueue`队列中，并设置屏障来确保同一时间只有一个线程操作`URLCallbacks`属性，我们以添加操作为例，如下代码所示：
 
-```
+```objc
 - (void)addProgressCallback:(SDWebImageDownloaderProgressBlock)progressBlock andCompletedBlock:(SDWebImageDownloaderCompletedBlock)completedBlock forURL:(NSURL *)url createCallback:(SDWebImageNoParamsBlock)createCallback {
 
     ...
