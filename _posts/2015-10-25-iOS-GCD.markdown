@@ -1,4 +1,5 @@
 ---
+layout: "post"
 title:  "认识GCD "
 date:   2015-10-25 18:22:03
 categories: [杂项]
@@ -17,7 +18,7 @@ tags: [能工巧匠]
 7.  
 以上问题基本都是对 `GCD` 常用 API 的追问与思考，深入理解这些问题有助于更好地使用 GCD，比如以下代码的执行结果是什么？
 
-```
+```objc
 - (void)viewDidLoad {
     [super viewDidLoad];
     dispatch_queue_t queue = dispatch_queue_create("com.bestswifter.queue", nil);

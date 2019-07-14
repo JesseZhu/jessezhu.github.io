@@ -2,7 +2,8 @@
 title: Jesse
 description: 'Hi, 我是Jesse,一名iOS开发者，热爱编程，平常也喜欢摄影，听音乐,看电影，欢迎大家能多多交流。'
 url: 'http://joshgerdes.com/jekyll-uno'
-baseurl: '/'
+baseurl: 'http://JesseZhu.com/'
+#baseurl: 'http://127.0.0.1:4000/'
 # google_analytics: 'UA-XXXXXX-X'
 # disqus_shortname: 'your-disqus-name'
 
@@ -27,13 +28,16 @@ destination: _site
 paginate: 10
 permalink: /:year/:title/
 markdown: kramdown
-highlighter: rouge
+# highlighter: rouge
+highlighter: pygments
 
 kramdown:
   # use Github Flavored Markdown
   input: GFM
   # do not replace newlines by <br>s
   hard_wrap: false
+  syntax_highlighter: pygments
+  math_engine: mathjax
 
 gems: ['jekyll-paginate']
 exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
