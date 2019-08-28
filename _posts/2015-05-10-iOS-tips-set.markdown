@@ -1,4 +1,5 @@
 ---
+layout: "post"
 title:  "iOS知识小集 "
 date:   2015-05-10 18:22:03
 categories: [杂项]
@@ -20,7 +21,7 @@ tags: [能工巧匠]
 #### 示例
 我们定义一个类，并为其声明两个字符串属性，如下所示：
 
-```
+```objc
 @interface TestStringClass ()
 @property (nonatomic, strong) NSString *strongString;
 @property (nonatomic, copy) NSString *copyedString;
