@@ -224,7 +224,7 @@ static struct /*_method_list_t*/ {
 	sizeof(_objc_method),
 	2,
 	{{(struct objc_selector *)"printClassName", "v16@0:8", (void *)_C_Person_Addition_printClassName},
-	{(struct objc_selector *)"personProtocolClassMethod", "v16@0:8", (void *)_C_Person_Addition_personProtocolClassMethod}}
+	{(struct objc_selector *)"personProtocolClassMethod", "v16@0:8", (void *)_C_Person_Addition_personProtocolClassMethod}
 };
 ```
 
@@ -256,7 +256,7 @@ static struct /*_method_list_t*/ {
 } _OBJC_PROTOCOL_INSTANCE_METHODS_PersonProtocol __attribute__ ((used, section ("__DATA,__objc_const"))) = {
 	sizeof(_objc_method),
 	1,
-	{{(struct objc_selector *)"personProtocolMethod", "v16@0:8", 0}}
+	{(struct objc_selector *)"personProtocolMethod", "v16@0:8", 0}
 };
 
 // 协议列表 类方法列表结构体
@@ -267,7 +267,7 @@ static struct /*_method_list_t*/ {
 } _OBJC_PROTOCOL_CLASS_METHODS_PersonProtocol __attribute__ ((used, section ("__DATA,__objc_const"))) = {
 	sizeof(_objc_method),
 	1,
-	{{(struct objc_selector *)"personProtocolClassMethod", "v16@0:8", 0}}
+	{(struct objc_selector *)"personProtocolClassMethod", "v16@0:8", 0}
 };
 
 // PersonProtocol 结构体赋值
@@ -305,7 +305,7 @@ static struct /*_prop_list_t*/ {
 } _OBJC_$_PROP_LIST_Person_$_Addition __attribute__ ((used, section ("__DATA,__objc_const"))) = {
 	sizeof(_prop_t),
 	1,
-	{{"personName","T@\"NSString\",C,N"}}
+	{"personName","T@\"NSString\",C,N"}
 };
 ```
 
