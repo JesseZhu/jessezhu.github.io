@@ -170,7 +170,7 @@ static struct _category_t *L_OBJC_LABEL_CATEGORY_$ [1] __attribute__((used, sect
 
 ### 2.2.2 Category 中『对象方法列表结构体』
 
-```
+```objc
 // - (void)printName; 对象方法的实现
 static void _I_Person_Addition_printName(Person * self, SEL _cmd) {
     NSLog((NSString *)&__NSConstantStringImpl__var_folders_ct_0dyw1pvj6k16t5z8t0j0_ghw0000gn_T_Person_Addition_405207_mi_1);
