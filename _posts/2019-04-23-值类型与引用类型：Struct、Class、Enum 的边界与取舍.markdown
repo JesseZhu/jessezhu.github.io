@@ -1,4 +1,10 @@
-
+---
+layout: "post"
+title:  "值类型与引用类型：Struct、Class、Enum 的边界与取舍"
+date:  2019-04-23 13:15:43
+categories: [杂项]
+tags: [Swift]
+---
 大家好，在刚开始学习 Swift 时，我像很多开发者一样，知道一个“简单”的区别：**Struct 是值类型（Value Type），Class 是引用类型（Reference Type）**。而 Enum 也是值类型。
 
 但随着项目的深入，我开始不断地问自己：
@@ -12,6 +18,8 @@
 ## 📥 核心差异：一张图看懂“复印件”与“共享链接”
 
 要理解值类型和引用类型，我们先不用代码，来看一个生活中的比喻。
+
+![](/images/2019/value-reference-type.png)
 
 ### 1\. 值类型 (Value Type)：一份“复印件”
 
