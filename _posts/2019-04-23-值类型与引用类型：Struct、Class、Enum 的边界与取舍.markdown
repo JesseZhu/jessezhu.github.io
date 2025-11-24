@@ -19,7 +19,7 @@ tags: [Swift]
 
 要理解值类型和引用类型，我们先不用代码，来看一个生活中的比喻。
 
-![](/images/2019/value-reference-type.png)
+![](/assets/images/2019/value-reference-type.png)
 
 ### 1\. 值类型 (Value Type)：一份“复印件”
 

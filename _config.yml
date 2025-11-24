@@ -37,7 +37,10 @@ kramdown:
   input: GFM
   # do not replace newlines by <br>s
   hard_wrap: false
-  syntax_highlighter: pygments
+  # syntax_highlighter: pygments
+  # syntax_highlighter: rouge
+  # syntax_highlighter_opts:
+  #   line_numbers: true
   math_engine: mathjax
 
 plugins: ["jekyll-paginate"]

@@ -1,7 +1,8 @@
 @import url(uno.css);
 @import url(monokai.css);
-@import url(pygments.css);
-@import url(rouge.css);
+/* @import url(pygments.css); */
+/* @import url(rouge.css); */
+
 /* Modifications */
 
 pre.highlight,

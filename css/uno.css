@@ -1323,7 +1323,9 @@ html {
 }
 
 body {
-  font-family: "Raleway", sans-serif;
+  /* font-family: "LXGW WenKai TC"; */
+  font-family: "Source Code Pro", monospace;
+  /* font-family: "Raleway", sans-serif; */
   font-size: 1em;
   color: #666666;
 }
@@ -1356,8 +1358,9 @@ h5,
 h5 {
   margin-top: 0.8em;
   margin-bottom: 0.4em;
-  font-family: "Roboto Slab", serif;
-  font-weight: bold;
+  /* font-family: "LXGW WenKai TC"; */
+  font-family: "Source Code Pro", monospace;
+  font-weight: normal;
   color: #bf2020;
   -webkit-font-smoothing: antialiased;
 }
@@ -1374,19 +1377,15 @@ h2 {
 }
 
 h3 {
+  font-size: 1em;
+}
+
+h4 {
   font-size: 0.8em;
 }
 
-h4 {
-  font-size: 0.4em;
-}
-
-h4 {
-  font-size: 1.2em;
-}
-
 h5 {
-  font-size: 1em;
+  font-size: 0.4em;
 }
 
 p {
