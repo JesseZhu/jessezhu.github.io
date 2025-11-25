@@ -1,0 +1,72 @@
+{% if page.toc != false %}
+{% assign toc_items = "" %}
+{% assign has_headings = false %}
+
+{% comment %}
+  Generate TOC by parsing content and looking for headings
+{% endcomment %}
+{% assign content_parts = content | split: "<h" %}
+{% for part in content_parts %}
+  {% assign part_trimmed = part | strip %}
+  {% if part_trimmed.size > 0 %}
+    {% assign first_char = part_trimmed | slice: 0, 1 %}
+    {% assign level_num = first_char | times: 1 %}
+
+    {% if level_num >= 1 and level_num <= 6 %}
+      {% assign has_headings = true %}
+      {% assign heading_part = part_trimmed | slice: 1, 9999 %}
+      {% assign heading_content = heading_part | split: ">" %}
+
+      {% if heading_content.size > 1 %}
+        {% assign heading_text = heading_content[1] | split: "<" | first | strip %}
+        {% assign heading_id = heading_text | downcase | replace: " ", "-" | replace: ":", "" | replace: "(", "" | replace: ")" "" | replace: ".", "" | replace: "'", "" | replace: '"', "" | replace: "？", "" | replace: "，", "" | replace: "。", "" | replace: "·", "" | replace: "、", "" %}
+
+        {% if heading_id.size == 0 %}
+          {% assign heading_id = "heading-" | append: forloop.index %}
+        {% endif %}
+
+        {% capture toc_item %}
+        <li class="toc-level-{{ level_num }}">
+          <a href="#{{ heading_id }}" class="toc-link" data-level="{{ level_num }}">{{ heading_text }}</a>
+        </li>
+        {% endcapture %}
+
+        {% assign toc_items = toc_items | append: toc_item %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if has_headings and toc_items.size > 0 %}
+<!-- Notion-style TOC: Button + Sidebar -->
+<div class="toc-wrapper">
+  <!-- TOC Toggle Button (like Notion's Outline button) -->
+  <button class="toc-toggle-btn" aria-label="显示目录" title="显示目录">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 4h12M2 8h12M2 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span class="toc-toggle-text">目录</span>
+  </button>
+
+  <!-- TOC Sidebar Panel -->
+  <div class="toc-sidebar">
+    <div class="toc-sidebar-header">
+      <h3 class="toc-sidebar-title">目录</h3>
+      <button class="toc-close-btn" aria-label="关闭目录">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="toc-sidebar-nav">
+      <ul class="toc-sidebar-list">
+        {{ toc_items }}
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Overlay for mobile -->
+  <div class="toc-overlay"></div>
+</div>
+{% endif %}
+{% endif %}

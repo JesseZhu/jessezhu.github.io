@@ -1549,7 +1549,7 @@ pre code {
 
 .footer {
   display: block;
-  padding: 2em 0 0 0;
+  padding: 2em 0 2em 0;
   border-top: 2px solid #dddddd;
   font-size: 0.7em;
   color: #b3b3b3;

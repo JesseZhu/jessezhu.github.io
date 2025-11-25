@@ -23,6 +23,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+      toc: true
 
 # Build settings
 destination: _site
