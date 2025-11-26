@@ -1402,16 +1402,16 @@ em {
 }
 
 blockquote {
-  margin: 1em 0;
-  padding: 2em 0;
+  margin: 1em 1em;
+  padding: 1em 1em;
   background: #f8f8f8;
   border: 1px solid #eeeeee;
   border-radius: 3px;
-  font-family: "Roboto Slab", serif;
+  font-family: "LXGW WenKai TC", serif;
   font-weight: lighter;
   font-style: italic;
   font-size: 1.3em;
-  text-align: center;
+  text-align: left;
 }
 blockquote p:last-child {
   margin-bottom: 0;
@@ -1538,6 +1538,7 @@ pre code {
   width: 90%;
   max-width: 800px;
   margin-left: 20%;
+  /* left: 220px; */
   margin-right: 20%;
   background-color: rgb(255, 255, 255);
 }
@@ -1678,7 +1679,7 @@ hr {
 }
 
 .panel-cover--collapsed {
-  width: 18%;
+  width: 220px;
   max-width: 530px;
 }
 
