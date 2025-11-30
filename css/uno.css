@@ -1671,8 +1671,6 @@ hr {
   display: block;
   position: fixed;
   z-index: 900;
-  width: 100%;
-  max-width: none;
   height: 100%;
   background: url(../images/background-cover.jpg) top left no-repeat #666666;
   background-size: cover;
@@ -1738,7 +1736,7 @@ hr {
   vertical-align: middle;
   position: relative;
   z-index: 800;
-  padding: 0 60px;
+  padding: 0 0px;
 }
 
 .panel-main__content {
@@ -1931,7 +1929,7 @@ nav {
 }
 
 .navigation--social {
-  margin-left: 1.5em;
+  margin-left: 0em;
 }
 .navigation--social a {
   padding: 6px 8px 6px 9px;
