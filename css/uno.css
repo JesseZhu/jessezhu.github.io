@@ -1459,7 +1459,7 @@ pre {
   border-radius: 3px;
   font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono,
     DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
-  font-size: 0.9em;
+  font-size: 1.2em;
   font-weight: normal;
   line-height: 1.3em;
 }
@@ -1631,7 +1631,7 @@ hr {
 }
 .post hr {
   display: block;
-  width: 30%;
+  width: 100%;
   margin: 2em 0;
   border-top: 1px solid #dddddd;
 }
