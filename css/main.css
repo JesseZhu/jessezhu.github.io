@@ -795,6 +795,12 @@ pre.highlight code,
   }
 }
 
+/* 强制浅色：当 data-theme="dark" 时，无视系统浅色 */
+:root[data-theme="light"] body {
+  background-color: #f7f7f7;
+  color: #000000;
+}
+
 /* 强制深色：当 data-theme="dark" 时，无视系统浅色 */
 :root[data-theme="dark"] {
   color-scheme: dark;
