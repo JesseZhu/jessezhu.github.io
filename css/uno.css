@@ -4,6 +4,7 @@
 	 License: none (public domain)
 */
 @import url(animate.css);
+
 html,
 body,
 div,
@@ -57,7 +58,7 @@ fieldset,
 form,
 label,
 legend,
-table,
+/* table, */
 caption,
 tbody,
 tfoot,
@@ -137,11 +138,13 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+  border: 1px solid #333333;
+  margin-bottom: 1.3em;
 }
 
 body {
   width: 100%;
-  *zoom: 1;
+  zoom: 1;
 }
 body:before,
 body:after {

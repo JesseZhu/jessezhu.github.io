@@ -1,6 +1,27 @@
 <span class="mobile btn-mobile-menu">
-  <i class="icon icon-list btn-mobile-menu__icon"></i>
-  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+  <svg
+    class="btn-mobile-menu__icon"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" />
+  </svg>
+  <svg
+    class="btn-mobile-close__icon hidden"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="m15 9-6 6m0-6 6 6" />
+  </svg>
 </span>
 
 <header
@@ -46,7 +67,16 @@
                   title="@{{ site.author.twitter_username }} on Twitter"
                   target="_blank"
                 >
-                  <i class="icon icon-social-twitter"></i>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
+                    />
+                  </svg>
                   <span class="label">Twitter</span>
                 </a>
               </li>
@@ -58,7 +88,16 @@
                   title="{{ site.author.facebook_username }} on Facebook"
                   target="_blank"
                 >
-                  <i class="icon icon-social-facebook"></i>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+                    />
+                  </svg>
                   <span class="label">Facebook</span>
                 </a>
               </li>
@@ -70,7 +109,17 @@
                   title="{{ site.author.linkedin_username }} on LinkedIn"
                   target="_blank"
                 >
-                  <i class="icon icon-social-linkedin"></i>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
+                    />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
                   <span class="label">LinkedIn</span>
                 </a>
               </li>
@@ -82,7 +131,16 @@
                   title="{{ site.author.github_username }} on GitHub"
                   target="_blank"
                 >
-                  <i class="icon icon-social-github"></i>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+                    />
+                  </svg>
                   <span class="label">GitHub</span>
                 </a>
               </li>
@@ -94,7 +152,19 @@
                   title="Email {{ site.author.email }}"
                   target="_blank"
                 >
-                  <i class="icon icon-mail"></i>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m22 7-10 5L2 7" />
+                  </svg>
                   <span class="label">Email</span>
                 </a>
               </li>
@@ -107,7 +177,16 @@
                   title="Subscribe"
                   target="_blank"
                 >
-                  <i class="icon icon-rss"></i>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M4 11a9 9 0 019 9h2c0-6.1-4.9-11-11-11v2zm0-4c8.8 0 16 7.2 16 16h2C22 13 13 4 4 4v2zm-2 13c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2z"
+                    />
+                  </svg>
                   <!-- <span class="label">RSS</span> -->
                 </a>
               </li>
@@ -120,8 +199,7 @@
                   id="theme-toggle-btn"
                   aria-label="切换浅色 / 深色模式"
                 >
-                  <!-- <i class="icon icon-rss"></i> -->
-                  <span class="theme-toggle-label">切换主题</span>
+                  <span class="theme-toggle-label">Dark</span>
                 </button>
               </li>
             </ul>

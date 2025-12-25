@@ -2,7 +2,31 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <style>
+    table {
+      border-left: 1px solid #333333;
+      border-top: 1px solid #333333;
+      border: 1px;
+      width: 100%;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+    table th {
+      text-align: center;
+    }
 
+    table th {
+      border-right: 1px solid #333333;
+      border-bottom: 1px solid #333333;
+      padding: 5px;
+    }
+
+    table td {
+      border-right: 1px solid #333333;
+      border-bottom: 1px solid #333333;
+      padding: 5px;
+    }
+  </style>
   <title>
     {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
   </title>

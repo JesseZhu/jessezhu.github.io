@@ -1,0 +1,26 @@
+/* SVG Icons Styles - Override Foundation Icons */
+.navigation--social a svg,
+.btn-mobile-menu__icon,
+.btn-mobile-close__icon {
+  display: block;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+/* Ensure SVG icons scale properly */
+.navigation--social a svg {
+  width: 1.7em;
+  height: 1.7em;
+  margin: 0 auto;
+}
+
+.btn-mobile-menu__icon,
+.btn-mobile-close__icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Hide Foundation Icons when SVGs are used */
+.icon {
+  display: none !important;
+}

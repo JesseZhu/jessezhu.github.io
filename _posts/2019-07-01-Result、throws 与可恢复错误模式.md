@@ -4,8 +4,8 @@ title:  "Result、throws 与可恢复错误模式"
 date:  2019-07-1 13:15:43
 categories: [杂项]
 tags: [Swift]
-toc: false
-comments: false
+toc: true
+comments: true
 ---
 
 
