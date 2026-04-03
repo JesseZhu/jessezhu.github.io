@@ -62,4 +62,14 @@ This is a personal blog website using the **Jekyll-Uno** theme, a minimal and re
 
 ### Build Output
 - Generated site built to `_site/` directory
-- Excludes development files from build (README.md, Gemfile, screenshot.png)
+- Excludes README.md, Gemfile, and screenshot.png from build
+
+### Additional Directories
+- `pre_posts/` - Draft posts staged before moving to `_posts/`
+- `draft/` - Work-in-progress posts (e.g., `draft/2023-11-24-toc-test.md`)
+
+### Development Notes
+- This is Jesse Zhu's personal blog (iOS developer), not the jekyll-uno theme repository itself
+- The site supports both English and Chinese content
+- Custom CSS in `main.css` overrides theme defaults for typography and readability
+- Font imports: Source Code Pro (monospace) and LXGW WenKai TC (Chinese)
