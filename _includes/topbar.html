@@ -1,5 +1,44 @@
 <div id="topbar-wrapper" class="topbar-wrapper">
   <div class="topbar-inner">
+    <button
+      type="button"
+      class="mobile btn-mobile-menu"
+      aria-label="打开侧边栏"
+      aria-expanded="false"
+    >
+      <svg
+        class="btn-mobile-menu__icon"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" />
+      </svg>
+      <svg
+        class="btn-mobile-close__icon hidden"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="m15 9-6 6m0-6 6 6" />
+      </svg>
+    </button>
+
+    <div class="topbar-mobile-title">
+      {% if page.layout == 'post' %}
+        {{ page.title }}
+      {% else %}
+        {{ site.author.name | default: site.title }}
+      {% endif %}
+    </div>
+
     <nav id="topbar-breadcrumb" class="topbar-breadcrumb" aria-label="面包屑导航">
       <a href="{{ site.baseurl }}/" class="breadcrumb-link">首页</a>
       {% assign breadcrumb_separator = '<span class="breadcrumb-sep">/</span>' %}
@@ -37,6 +76,13 @@
              autocomplete="off" />
       <div id="topbar-search-results" class="topbar-search-results" aria-live="polite"></div>
     </div>
+
+    <a href="{{ site.baseurl }}/search/" class="topbar-search-icon" aria-label="搜索" title="搜索">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </a>
   </div>
 </div>
 

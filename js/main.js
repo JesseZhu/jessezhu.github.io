@@ -48,7 +48,7 @@ $(document).ready(function () {
 
   (function () {
     var mobileMenuBtn = document.querySelector(".btn-mobile-menu");
-    var navigationWrapper = document.querySelector(".navigation-wrapper");
+    var navigationWrapper = document.querySelector(".navigation-wrapper.mobile-only");
     var mobileOverlay = document.querySelector(".mobile-nav-overlay");
     var openIcon = document.querySelector(".btn-mobile-menu__icon");
     var closeIcon = document.querySelector(".btn-mobile-close__icon");
@@ -116,10 +116,10 @@ $(document).ready(function () {
   // ================================
   (function () {
     var storageKey = "site-theme"; // 'light' | 'dark'
-    var toggleBtn = document.getElementById("theme-toggle-btn");
+    var toggleButtons = document.querySelectorAll(".btn-theme-toggle");
     var docEl = document.documentElement;
 
-    if (!toggleBtn) return;
+    if (toggleButtons.length === 0) return;
 
     function getSystemPrefersDark() {
       return (
@@ -133,13 +133,15 @@ $(document).ready(function () {
         docEl.setAttribute("data-theme", theme);
       }
 
-      if (theme === "dark") {
-        toggleBtn.setAttribute("aria-label", "切换到浅色模式");
-        toggleBtn.setAttribute("title", "切换到浅色模式");
-      } else {
-        toggleBtn.setAttribute("aria-label", "切换到深色模式");
-        toggleBtn.setAttribute("title", "切换到深色模式");
-      }
+      toggleButtons.forEach(function (btn) {
+        if (theme === "dark") {
+          btn.setAttribute("aria-label", "切换到浅色模式");
+          btn.setAttribute("title", "切换到浅色模式");
+        } else {
+          btn.setAttribute("aria-label", "切换到深色模式");
+          btn.setAttribute("title", "切换到深色模式");
+        }
+      });
 
       if (save) {
         try {
@@ -165,11 +167,13 @@ $(document).ready(function () {
     }
 
     // 点击切换
-    toggleBtn.addEventListener("click", function () {
-      var current =
-        docEl.getAttribute("data-theme") === "dark" ? "dark" : "light";
-      var next = current === "dark" ? "light" : "dark";
-      applyTheme(next, true);
+    toggleButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var current =
+          docEl.getAttribute("data-theme") === "dark" ? "dark" : "light";
+        var next = current === "dark" ? "light" : "dark";
+        applyTheme(next, true);
+      });
     });
   })();
 });
