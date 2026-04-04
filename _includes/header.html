@@ -1,4 +1,9 @@
-<span class="mobile btn-mobile-menu">
+<button
+  type="button"
+  class="mobile btn-mobile-menu"
+  aria-label="打开侧边栏"
+  aria-expanded="false"
+>
   <svg
     class="btn-mobile-menu__icon"
     width="24"
@@ -22,10 +27,10 @@
     <circle cx="12" cy="12" r="10" />
     <path d="m15 9-6 6m0-6 6 6" />
   </svg>
-</span>
+</button>
 
 <header
-  class="panel-cover"
+  class="panel-cover panel-cover--collapsed"
   style="background-image: url({{ site.baseurl }}/images/cover.jpg)"
 >
   <div class="panel-main">
@@ -44,6 +49,20 @@
         <hr class="panel-cover__divider panel-cover__divider--secondary" />
 
         <div class="navigation-wrapper">
+          <div class="mobile-navigation-header">
+            <a href="{{ site.baseurl }}/" class="mobile-navigation-brand" title="link to home of {{ site.title }}">
+              <img
+                src="{{ site.baseurl }}/images/profile.jpg"
+                class="mobile-navigation-avatar"
+                alt="My Profile Photo"
+              />
+              <div class="mobile-navigation-copy">
+                <div class="mobile-navigation-title">{{ site.title }}</div>
+                <p class="mobile-navigation-description">{{ site.description }}</p>
+              </div>
+            </a>
+          </div>
+
           <nav class="cover-navigation cover-navigation--primary">
             <ul class="navigation">
               <li class="navigation__item">
@@ -199,7 +218,43 @@
                   id="theme-toggle-btn"
                   aria-label="切换浅色 / 深色模式"
                 >
-                  <span class="theme-toggle-label">Dark</span>
+                  <svg
+                    class="theme-toggle-icon theme-toggle-icon--moon"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 3a6 6 0 1 0 9 9 9 9 0 1 1-9-9z" />
+                  </svg>
+                  <svg
+                    class="theme-toggle-icon theme-toggle-icon--sun"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2" />
+                    <path d="M12 20v2" />
+                    <path d="m4.93 4.93 1.41 1.41" />
+                    <path d="m17.66 17.66 1.41 1.41" />
+                    <path d="M2 12h2" />
+                    <path d="M20 12h2" />
+                    <path d="m6.34 17.66-1.41 1.41" />
+                    <path d="m19.07 4.93-1.41 1.41" />
+                  </svg>
+                  <span class="sr-only">切换主题</span>
                 </button>
               </li>
             </ul>
@@ -211,3 +266,9 @@
     <div class="panel-cover--overlay"></div>
   </div>
 </header>
+
+<button
+  type="button"
+  class="mobile-nav-overlay"
+  aria-label="关闭侧边栏"
+></button>

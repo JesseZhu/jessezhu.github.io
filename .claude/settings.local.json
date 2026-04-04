@@ -4,7 +4,15 @@
       "Skill(git-commit)",
       "Bash(git config:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git remote:*)",
+      "Skill(playwright-cli)",
+      "Bash(playwright-cli open:*)",
+      "Bash(playwright-cli screenshot:*)",
+      "Bash(playwright-cli reload:*)",
+      "Bash(playwright-cli eval:*)",
+      "Bash(playwright-cli close:*)",
+      "Bash(playwright-cli snapshot:*)"
     ]
   }
 }

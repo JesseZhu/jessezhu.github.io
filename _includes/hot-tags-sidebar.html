@@ -1,0 +1,58 @@
+<div class="tag-explorer__sticky">
+  <section class="tag-explorer__panel">
+    <div class="tag-explorer__eyebrow">热门标签</div>
+
+    <div class="tag-explorer__chips" {% if include.mode == 'home' %}role="tablist" aria-label="文章标签筛选"{% endif %}>
+      {% if include.mode == 'home' %}
+        <button
+          type="button"
+          class="tag-explorer__chip is-active"
+          data-target="posts-panel-home"
+          data-url="{{ site.baseurl }}/"
+          data-label=""
+          role="tab"
+          aria-selected="true"
+        >
+          最新
+        </button>
+      {% endif %}
+
+      {% for item in site.data.popular_tags %}
+        {% assign tag_name = item.name %}
+        {% assign tag_label = item.label | default: tag_name %}
+        {% assign tag_slug = site.data.tag_paths[tag_name] | default: tag_name | slugify %}
+        {% assign tag_count = site.tags[tag_name].size %}
+        {% if tag_count and tag_count > 0 %}
+          {% if include.mode == 'home' %}
+            <button
+              type="button"
+              class="tag-explorer__chip"
+              data-target="posts-panel-{{ tag_slug }}"
+              data-url="{{ site.baseurl }}/tags/{{ tag_slug }}/"
+              data-label="{{ tag_label }}"
+              role="tab"
+              aria-selected="false"
+            >
+              {{ tag_label }}
+              <span class="tag-explorer__count">{{ tag_count }}</span>
+            </button>
+          {% else %}
+            {% assign is_active = false %}
+            {% if page.layout == 'tag' and page.tag_name == tag_name %}
+              {% assign is_active = true %}
+            {% elsif page.tags contains tag_name %}
+              {% assign is_active = true %}
+            {% endif %}
+            <a
+              class="tag-explorer__chip{% if is_active %} is-active{% endif %}"
+              href="{{ site.baseurl }}/tags/{{ tag_slug }}/"
+            >
+              {{ tag_label }}
+              <span class="tag-explorer__count">{{ tag_count }}</span>
+            </a>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+</div>

@@ -1,30 +1,30 @@
 ---
 layout: default
+toc: false
 ---
-<h2>Tags:</h2>
-<div class="tags"> 
-{% for tagitem in site.tags  %} 
-  <a href="#{{ tagitem[0] }}">{{  tagitem[0] }}</a>
-{% endfor %}
-</div>
+{% assign sorted_tags = site.tags | sort %}
 
-<!-- iterate through all tags on the site --> 
-{% for tagitem in site.tags %} 
-  <!-- for each tag, create an anchor by using the tag name as an id --> 
-  <div id="{{ tagitem[0] }}">  
-    <h3> {{ tagitem[0] }} </h3>  <!-- for create a heading --> 
+<section class="tag-page tag-page--index">
+  <header class="tag-page__header">
+    <div class="tag-page__eyebrow">标签页</div>
+    <h1 class="tag-page__title">全部标签</h1>
+    <p class="tag-page__description">按标签浏览文章，点击任一标签进入对应列表页。</p>
+  </header>
 
-    <ul> <!-- create the list of posts -->
-      <!-- iterate through all the posts on the site --> 
-      {% for post in site.posts %} 
-        <!-- list only those which contain the current tag --> 
-        {% if post.tags contains tagitem[0] %} 
-            <li>
-              <a href="{{ post.url  }}">{{ post.title }}</a>
-              <!-- <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a> -->
-            </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
+  <div class="tag-page__grid">
+    {% for tagitem in sorted_tags %}
+      {% assign tag_name = tagitem[0] %}
+      <a class="tag-card" href="{{ site.baseurl }}/tags/{{ site.data.tag_paths[tag_name] | default: tag_name | slugify }}/">
+        <div class="tag-card__title-row">
+          <h2 class="tag-card__title">{{ tag_name }}</h2>
+          <span class="tag-card__count">{{ tagitem[1].size }}</span>
+        </div>
+        <ul class="tag-card__posts">
+          {% for post in tagitem[1] limit: 4 %}
+            <li class="tag-card__post">{{ post.title }}</li>
+          {% endfor %}
+        </ul>
+      </a>
+    {% endfor %}
   </div>
-{% endfor %}
+</section>

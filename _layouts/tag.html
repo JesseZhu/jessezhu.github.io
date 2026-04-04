@@ -1,0 +1,49 @@
+---
+layout: default
+toc: false
+---
+{% assign tag_posts = site.tags[page.tag_name] %}
+{% assign sorted_tags = site.tags | sort %}
+
+<section class="tag-page">
+  <header class="tag-page__header">
+    <div class="tag-page__eyebrow">标签页</div>
+    <h1 class="tag-page__title">{{ page.title }}</h1>
+    <p class="tag-page__description">共 {{ tag_posts | size }} 篇文章，按时间倒序展示。</p>
+  </header>
+
+  <nav class="tag-page__nav" aria-label="标签导航">
+    {% for tagitem in sorted_tags %}
+      {% assign tag_name = tagitem[0] %}
+      <a
+        class="tag-page__chip{% if tag_name == page.tag_name %} is-active{% endif %}"
+        href="{{ site.baseurl }}/tags/{{ site.data.tag_paths[tag_name] | default: tag_name | slugify }}/"
+      >
+        {{ tag_name }}
+        <span class="tag-page__count">{{ tagitem[1].size }}</span>
+      </a>
+    {% endfor %}
+  </nav>
+
+  <ol class="post-list tag-page__list">
+    {% for post in tag_posts %}
+      <li>
+        <h2 class="post-list__post-title post-title">
+          <a href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">{{ post.title }}</a>
+        </h2>
+        <p class="excerpt">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}&hellip;</p>
+        <div class="post-list__meta">
+          <time datetime="{{ post.date | date: '%-d %b %Y' }}" class="post-list__meta--date date">{{ post.date | date: '%-d %b %Y' }}</time>
+          &#8226;
+          <span class="post-meta__tags">
+            on
+            {% for tag in post.tags %}
+              <a href="{{ site.baseurl }}/tags/{{ site.data.tag_paths[tag] | default: tag | slugify }}/">{{ tag }}</a>
+            {% endfor %}
+          </span>
+        </div>
+        <hr class="post-list__divider">
+      </li>
+    {% endfor %}
+  </ol>
+</section>

@@ -1,10 +1,18 @@
 <div id="topbar-wrapper" class="topbar-wrapper">
   <div class="topbar-inner">
-    <nav class="topbar-breadcrumb" aria-label="面包屑导航">
+    <nav id="topbar-breadcrumb" class="topbar-breadcrumb" aria-label="面包屑导航">
       <a href="{{ site.baseurl }}/" class="breadcrumb-link">首页</a>
       {% assign breadcrumb_separator = '<span class="breadcrumb-sep">/</span>' %}
 
-      {% if page.categories and page.categories.size > 0 %}
+      {% if page.layout == 'tag' %}
+        {{ breadcrumb_separator }}
+        <a class="breadcrumb-link" href="{{ site.baseurl }}/tags/">标签</a>
+        {{ breadcrumb_separator }}
+        <span class="breadcrumb-current">{{ page.title }}</span>
+      {% elsif page.url == '/tags/' %}
+        {{ breadcrumb_separator }}
+        <span class="breadcrumb-current">标签</span>
+      {% elsif page.categories and page.categories.size > 0 %}
         {% for category in page.categories %}
           {{ breadcrumb_separator }}
           <a class="breadcrumb-link" href="{{ site.baseurl }}/categories/#{{ category | slugify }}">{{ category }}</a>
@@ -14,7 +22,7 @@
         <span class="breadcrumb-link">博文</span>
       {% endif %}
 
-      {% if page.title %}
+      {% if page.title and page.layout != 'tag' and page.url != '/tags/' %}
         {{ breadcrumb_separator }}
         <span class="breadcrumb-current">{{ page.title }}</span>
       {% endif %}
@@ -44,4 +52,3 @@
     {% endfor %}
   ];
 </script>
-
