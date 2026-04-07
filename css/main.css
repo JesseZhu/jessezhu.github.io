@@ -552,7 +552,7 @@ pre.highlight code,
   }
 
   .topbar-inner {
-    padding: 10px 40px 10px 56px;
+    padding: 10px 40px 10px 156px;
   }
 
   .content-wrapper {
@@ -564,7 +564,7 @@ pre.highlight code,
 
   .content-wrapper__inner {
     margin: 0;
-    padding: 50px 40px 50px 56px;
+    padding: 50px 40px 50px 156px;
   }
 }
 
@@ -825,7 +825,7 @@ pre.highlight code,
     justify-content: space-between;
     align-items: center;
     /* Match the horizontal padding of content-wrapper__inner */
-    padding: 10px 40px 10px 56px !important;
+    padding: 10px 40px 10px 156px !important;
   }
 
   .topbar-breadcrumb {
@@ -848,14 +848,14 @@ pre.highlight code,
   .home-posts-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 320px;
-    gap: 40px;
+    gap: 140px;
     align-items: start;
   }
 
   .post-detail-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 320px;
-    gap: 40px;
+    gap: 100px;
     align-items: start;
   }
 
@@ -1913,5 +1913,96 @@ pre.highlight code,
   }
   body.mobile-menu-open .mobile-nav-overlay {
     z-index: 9999 !important;
+  }
+}
+
+/* Post Extras (Navigation & Comments) */
+.post-extras {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.post-navigation {
+  margin-bottom: 60px;
+}
+
+.post-navigation__label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.post-navigation__link {
+  display: block;
+  text-decoration: none;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.post-navigation__link:hover {
+  background: rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+.post-navigation__title {
+  margin: 0 0 8px 0;
+  font-size: 1.5rem;
+  color: #bf2020;
+}
+
+.post-navigation__excerpt {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Align post-extras with the main article column on large screens */
+@media (min-width: 1180px) {
+  .post-extras {
+    /* Leave space for the 320px sidebar + 40px gap */
+    padding-right: 360px; 
+  }
+}
+
+:root[data-theme="dark"] .post-navigation__link {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+:root[data-theme="dark"] .post-navigation__link:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+:root[data-theme="dark"] .post-navigation__excerpt {
+  color: #aaa;
+}
+
+/* Two-column layout for post navigation */
+.post-navigation__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.post-navigation__link {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-navigation__title {
+  font-size: 1.25rem !important;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .post-navigation__grid {
+    grid-template-columns: 1fr;
   }
 }

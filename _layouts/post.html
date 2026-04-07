@@ -13,6 +13,7 @@ layout: default
     <section class="post">
       {{ content }}
     </section>
+
     {% if page.comments != false and site.disqus_shortname %}<section id="disqus_thread"></section><!-- /#disqus_thread -->{% endif %}
   </article>
 
@@ -20,15 +21,47 @@ layout: default
     {% include hot-tags-sidebar.html mode='link' %}
   </aside>
 </div>
+
+<div class="post-extras">
+  {% assign found_current = false %}
+  {% assign count = 0 %}
+  {% assign next_posts = "" | split: "" %}
+
+  {% for post in site.posts reversed %}
+    {% if found_current and count < 2 %}
+      {% assign next_posts = next_posts | push: post %}
+      {% assign count = count | plus: 1 %}
+    {% endif %}
+    {% if post.url == page.url %}
+      {% assign found_current = true %}
+    {% endif %}
+  {% endfor %}
+
+  {% if next_posts.size > 0 %}
+    <nav class="post-navigation">
+      <div class="post-navigation__label">继续阅读</div>
+      <div class="post-navigation__grid">
+        {% for next_post in next_posts %}
+          <a class="post-navigation__link" href="{{ next_post.url | prepend: site.baseurl }}" title="{{ next_post.title }}">
+            <h2 class="post-navigation__title">{{ next_post.title }}</h2>
+            <p class="post-navigation__excerpt">{{ next_post.excerpt | strip_html | truncate: 80 }}</p>
+          </a>
+        {% endfor %}
+      </div>
+    </nav>
+  {% endif %}
+
+  {% if page.comments != false %}
+    <section id="comments">
+      <script src="https://utteranc.es/client.js"
+          repo="JesseZhu/discussion"
+          issue-term="url"
+          theme="github-dark"
+          crossorigin="anonymous"
+          async>
+      </script> 
+    </section>
+  {% endif %}
+</div>
+
 {% if page.comments != false %}{% include disqus.html %}{% endif %}
-{% if page.comments != false %}
-  <section id="comments">
-    <script src="https://utteranc.es/client.js"
-        repo="JesseZhu/discussion"
-        issue-term="url"
-        theme="github-dark"
-        crossorigin="anonymous"
-        async>
-    </script> 
-  </section>
-{% endif %}
