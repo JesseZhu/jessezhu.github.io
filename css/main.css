@@ -185,7 +185,9 @@ pre.highlight code,
   border: 1px solid rgba(0, 0, 0, 0.12);
   background: #ffffff;
   font-size: 13px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .topbar-search-input:focus {
@@ -355,17 +357,20 @@ pre.highlight code,
 
   .mobile-navigation-brand {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 14px;
+    text-align: center;
+    gap: 12px;
     color: #ffffff;
   }
 
   .mobile-navigation-avatar {
-    width: 56px;
-    height: 56px;
+    width: 90px;
+    height: 90px;
     border-radius: 999px;
     border: 2px solid rgba(255, 255, 255, 0.9);
     flex-shrink: 0;
+    margin-bottom: 8px;
   }
 
   .mobile-navigation-copy {
@@ -394,10 +399,13 @@ pre.highlight code,
     left: 0;
     bottom: 0;
     right: auto;
-    width: min(82vw, 320px);
+    width: 66vw;
     height: 100vh;
-    padding: 72px 16px 28px; /* Changed from 20px to 16px to align with main content */
-    background: linear-gradient(180deg, rgba(24, 24, 27, 0.98), rgba(9, 9, 11, 0.98));
+    box-sizing: border-box;
+    padding: 72px 16px 28px;
+    background-image: url(/images/cover.jpg);
+    background-size: cover;
+    background-position: center;
     border-right: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 24px 0 40px rgba(0, 0, 0, 0.35);
     overflow-y: auto;
@@ -406,8 +414,27 @@ pre.highlight code,
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: transform 0.28s ease, opacity 0.2s ease, visibility 0.2s ease;
+    transition:
+      transform 0.28s ease,
+      opacity 0.2s ease,
+      visibility 0.2s ease;
     z-index: 9998;
+  }
+
+  /* Add overlay for navigation-wrapper background image */
+  .navigation-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(68, 68, 68, 0.6),
+      rgba(0, 0, 0, 0.95)
+    );
+    z-index: -1;
   }
 
   .navigation-wrapper.visible {
@@ -445,11 +472,21 @@ pre.highlight code,
   .navigation-wrapper .navigation__item a,
   .navigation-wrapper .navigation__item button {
     width: 100%;
-    justify-content: flex-start;
-    padding: 10px 0 !important; /* Remove horizontal padding to align text to the edge */
+    justify-content: center;
+    text-align: center;
+    padding: 12px 0 !important; /* Remove horizontal padding to align text to the edge */
     border: none !important; /* Remove borders for a cleaner look in the sidebar */
     background: transparent !important;
     font-size: 1.1rem !important;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.2s ease;
+  }
+
+  .navigation-wrapper .navigation__item a.mobile-active-link {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff;
+    border-radius: 8px;
+    font-weight: bold;
   }
 
   .navigation-wrapper .cover-navigation.navigation--social {
@@ -460,22 +497,23 @@ pre.highlight code,
   }
 
   .navigation-wrapper .cover-navigation.navigation--social .navigation {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
   }
 
   .navigation-wrapper .cover-navigation.navigation--social .navigation li {
-    width: 100%;
+    width: auto;
     margin-bottom: 0;
   }
 
   .navigation-wrapper .cover-navigation.navigation--social a,
   .navigation-wrapper .cover-navigation.navigation--social .btn-theme-toggle {
-    width: 100%;
+    width: auto;
     min-width: 0;
-    padding: 8px 0 !important;
-    font-size: 0.95rem !important;
+    padding: 8px !important;
+    color: rgba(255, 255, 255, 0.6);
   }
 
   .mobile-nav-overlay {
@@ -486,7 +524,9 @@ pre.highlight code,
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition:
+      opacity 0.2s ease,
+      visibility 0.2s ease;
     z-index: 9997;
   }
 
@@ -777,6 +817,31 @@ pre.highlight code,
 
 .tag-card__post + .tag-card__post {
   margin-top: 8px;
+}
+
+@media (min-width: 1180px) {
+  .topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Match the horizontal padding of content-wrapper__inner */
+    padding: 10px 40px 10px 56px !important;
+  }
+
+  .topbar-breadcrumb {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .topbar-search {
+    width: 320px;
+    margin-left: 40px; /* Match the gap of the main layout */
+    flex-shrink: 0;
+  }
+
+  .topbar-search-input {
+    width: 100% !important;
+  }
 }
 
 @media (min-width: 1180px) {
@@ -1365,7 +1430,8 @@ pre.highlight code,
 
   :root:not([data-theme="light"]) .toc-sidebar-header {
     border-bottom-color: rgba(55, 65, 81, 0.9);
-  }  :root:not([data-theme="light"]) .toc-sidebar-title {
+  }
+  :root:not([data-theme="light"]) .toc-sidebar-title {
     color: #e5e7eb;
   }
 
@@ -1810,5 +1876,42 @@ pre.highlight code,
   }
   .topbar-search-icon {
     display: none !important;
+  }
+}
+
+/* Slide animation for main content */
+@media (max-width: 960px) {
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+  body.mobile-menu-open {
+    overflow: hidden !important; /* Lock vertical and horizontal scroll */
+    height: 100vh !important; /* Ensure viewport height is fixed */
+    position: fixed; /* Best way to prevent all scroll/bounce on mobile */
+    width: 100%;
+  }
+  .topbar-wrapper,
+  .content-wrapper {
+    transition: transform 0.28s ease;
+  }
+  body.mobile-menu-open .navigation-wrapper {
+    z-index: 10000 !important;
+  }
+  body.mobile-menu-open .topbar-wrapper,
+  body.mobile-menu-open .content-wrapper {
+    transform: translateX(66vw) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    max-width: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    cursor: pointer; /* Visual hint that clicking here closes the menu */
+  }
+  body.mobile-menu-open .mobile-nav-overlay {
+    z-index: 9999 !important;
   }
 }

@@ -44,5 +44,13 @@ kramdown:
   #   line_numbers: true
   math_engine: mathjax
 
-plugins: ["jekyll-paginate"]
+plugins: ["jekyll-paginate", "jekyll-archives"]
+
+jekyll-archives:
+  enabled: ["tags", "categories"]
+  layout: "tag"
+  permalinks:
+    tag: "/tags/:name/"
+    category: "/categories/:name/"
+
 exclude: ["README.md", "Gemfile", "Gemfile.lock", "screenshot.png"]

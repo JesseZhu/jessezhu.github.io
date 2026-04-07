@@ -81,12 +81,28 @@ $(document).ready(function () {
 
     mobileMenuBtn.onclick = function (event) {
       event.preventDefault();
+      event.stopPropagation(); // Prevents bubbling to topbar listener
       toggleMenu();
     };
 
     mobileOverlay.onclick = function () {
       setMenuState(false);
     };
+
+    // Add click listeners to content and topbar to close menu when open
+    var closeTriggers = [document.querySelector(".content-wrapper"), document.querySelector(".topbar-wrapper")];
+    closeTriggers.forEach(function (el) {
+      if (!el) return;
+      el.addEventListener("click", function (e) {
+        if (document.body.classList.contains("mobile-menu-open")) {
+          // If the click is on a link, let the link's own listener handle it
+          // Otherwise, close the menu
+          if (e.target.tagName !== "A" && !e.target.closest("a")) {
+            setMenuState(false);
+          }
+        }
+      });
+    });
 
     navigationWrapper.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
